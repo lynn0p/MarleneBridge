@@ -1,3 +1,6 @@
+// util.h Copyright 2013 Owen Lynn <owen.lynn@gmail.com>
+// Released under the GNU Public License V3
+
 #ifndef UTIL_H
 #define UTIL_H
 
