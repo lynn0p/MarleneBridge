@@ -54,7 +54,7 @@ ConnectionHandler::run()
     PacketMachine pacman(this,m_host,m_port,m_user,m_pass);
     do {
         // the packet format is length(2 bytes) followed by the
-        // first 4 bytes SHA256 hash on the data followed by the data
+        // a simple checksum, followed by data
         // and everything and i mean everything is little endian
         unsigned short packetlen = 0;
         rc = Read(&packetlen,sizeof(packetlen));
