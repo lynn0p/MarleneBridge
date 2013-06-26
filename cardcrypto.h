@@ -1,3 +1,6 @@
+// CardCrypto.h Copyright 2013 Owen Lynn <owen.lynn@gmail.com>
+// Released under the GNU Public License V3
+
 #ifndef CARDCRYPTO_H
 #define CARDCRYPTO_H
 #include <QtCore>

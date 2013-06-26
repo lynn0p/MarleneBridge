@@ -1,3 +1,6 @@
+// packetmachine.cpp Copyright 2013 Owen Lynn <owen.lynn@gmail.com>
+// Released under the GNU Public License V3
+
 #include "packetmachine.h"
 #include "QtWalletClient.h"
 #include "util.h"

@@ -1,3 +1,6 @@
+// Task.cpp Copyright 2013 Owen Lynn <owen.lynn@gmail.com>
+// Released under the GNU Public License V3
+
 #include "task.h"
 #include <iostream>
 #include "QtWalletClient.h"

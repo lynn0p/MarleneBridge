@@ -1,3 +1,6 @@
+// WalletClient.h Copyright 2013 Owen Lynn <owen.lynn@gmail.com>
+// Released under the GNU Public License V3
+
 #ifndef WALLETCLIENT_H
 #define WALLETCLIENT_H
 #include <QtCore>
