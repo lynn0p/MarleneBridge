@@ -2,7 +2,6 @@
 #define CONNECTIONHANDLER_H
 
 #include <QObject>
-#include <QtNetwork>
 
 class ConnectionHandler : public QObject
 {

@@ -1,5 +1,4 @@
 #include "task.h"
-#include <QtNetwork>
 #include <iostream>
 #include "QtWalletClient.h"
 #include "cardcrypto.h"

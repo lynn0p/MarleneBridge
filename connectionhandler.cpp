@@ -79,9 +79,10 @@ ConnectionHandler::run()
             // everything checks out so invoke the packet handler on it
             QByteArray resp;
             rc = pacman.gobble(keepgoing,payload,resp);
-            if (rc == 0) {
-                rc = Write(resp);
+            if (rc < 0) {
+                // TODO: log an error here
             }
+            rc = Write(resp);
         } else {
             break;
         }

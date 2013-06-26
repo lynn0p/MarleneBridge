@@ -135,9 +135,8 @@ PacketMachine::gobble(bool &keepgoing, QByteArray &in, QByteArray &out)
         // if you get to here, something very bad has happened
         default: {
             rc = ERROR_GOBBLE_VERY_BAD_STATE;
+            doError(rc,out);
             keepgoing = false;
-            doError(ERROR_GOBBLE_VERY_BAD_STATE,out);
-            m_state = STATE_CARDSECRETS;
         }
         break;
     }
@@ -279,6 +278,8 @@ int PacketMachine::doCommand(bool &keepgoing, QByteArray &in, QByteArray &out)
         rest.append((char*)p,e-p);
     }
 
+    // maybe this should change, right now it allows you one command
+    // and then it disconnects
     keepgoing = false;
     switch(cmd->code) {
         case COMMAND_CODE_PAYMENT: {
@@ -335,7 +336,7 @@ int PacketMachine::doPayment(QByteArray &in, QByteArray &out)
     // TODO: check this call and log on error, maybe alert on error too
     LockWallet();
 
-    // assemble the success response
+    // assemble the response
     QByteArray plain_out,cipher_out;
     unsigned long magic = SERVER_MAGIC;
     unsigned long version = PACKET_VERSION;
