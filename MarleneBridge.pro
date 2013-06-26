@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core network
 
 QT       -= gui
 
@@ -15,4 +15,23 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    WalletClient.cpp \
+    task.cpp \
+    QtWalletClient.cpp \
+    packetmachine.cpp \
+    connectionhandler.cpp \
+    cardcrypto.cpp
+
+HEADERS += \
+    WalletClient.h \
+    util.h \
+    task.h \
+    QtWalletClient.h \
+    packetmachine.h \
+    connectionhandler.h \
+    cardcrypto.h
+
+unix {
+LIBS += -lcrypto
+}
