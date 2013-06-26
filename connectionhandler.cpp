@@ -5,9 +5,11 @@
 #include <sys/socket.h>
 #include <errno.h>
 
+// basically if no response from terminal within 30sec, close it out and shut the conn down
+// this may need to be tuned later
 #define WAIT_BETWEEN_TRIES 100
-#define MAX_READ_TRIES  3
-#define MAX_WRITE_TRIES 3
+#define MAX_READ_TRIES  300
+#define MAX_WRITE_TRIES 300
 
 ConnectionHandler::ConnectionHandler(QObject *parent) :
     QObject(parent), m_conn_sock(-1)
@@ -40,6 +42,7 @@ ConnectionHandler::setConnection(int sock)
     }
     if (sock > 0) {
         m_conn_sock = sock;
+        SetNonblocking();
     }
 }
 
