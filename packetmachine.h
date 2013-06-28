@@ -34,6 +34,7 @@ private:
     int doCardSecrets(QByteArray &in,QByteArray &out);
     int doCommand(bool &keepgoing, QByteArray &in, QByteArray &out);
     int doPayment(QByteArray &in, QByteArray &out);
+    int goGoodbye(QByteArray &out);
     void doError(int reason, QByteArray &out);
 
     int GetNewAddress(QString &acctname,QString &addr);

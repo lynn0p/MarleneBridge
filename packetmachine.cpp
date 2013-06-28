@@ -55,6 +55,7 @@
 
 #define RESPONSE_CODE_HELLO   0x0001
 #define RESPONSE_CODE_PAYMENT 0x0002
+#define RESPONSE_CODE_GOODBYE 0x7fff
 #define RESPONSE_CODE_ERROR   0x8000
 
 #define COMMAND_CODE_PAYMENT  0x0001
@@ -291,7 +292,7 @@ int PacketMachine::doCommand(bool &keepgoing, QByteArray &in, QByteArray &out)
         break;
 
         case COMMAND_CODE_GOODBYE: {
-            return SUCCESS;
+            return goGoodbye(out);
         }
         break;
 
@@ -351,6 +352,34 @@ int PacketMachine::doPayment(QByteArray &in, QByteArray &out)
     plain_out.append((char*)&code,sizeof(code));
     plain_out.append((char*)&status,sizeof(status));
     plain_out.append(txid);
+
+    switch (m_cipher) {
+        case CIPHER_AES256: {
+            if (!m_crypto->AES256CBCEncrypt(m_aes256_key,m_aes256_iv,
+                                            plain_out,cipher_out)) {
+                return ERROR_DOPAYMENT_AES_ENCRYPT_FAIL;
+            }
+        } break;
+        default: {
+            return ERROR_DOPAYMENT_UNKNOWN_CIPHER;
+        }
+    }
+    out = wrapPacket(cipher_out);
+
+    return SUCCESS;
+}
+
+int PacketMachine::goGoodbye(QByteArray &out)
+{
+    QByteArray plain_out,cipher_out;
+    unsigned long magic = SERVER_MAGIC;
+    unsigned long version = PACKET_VERSION;
+    unsigned short code = RESPONSE_CODE_GOODBYE;
+
+    plain_out.clear();
+    plain_out.append((char*)&magic,sizeof(magic));
+    plain_out.append((char*)&version,sizeof(version));
+    plain_out.append((char*)&code,sizeof(code));
 
     switch (m_cipher) {
         case CIPHER_AES256: {
